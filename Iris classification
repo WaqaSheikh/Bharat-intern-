@@ -1,0 +1,51 @@
+#Importing Libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_iris
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+import seaborn as sns
+
+# Load and explore the dataset
+mydataset = load_iris()
+data = pd.DataFrame(data=np.c_[mydataset['data'], mydataset['target']], columns=mydataset[
+print(data.head())
+print("Shape of Data: {}".format(mydataset['data'].shape))
+
+# Split data into training and testing sets
+x_train, x_test, y_train, y_test = train_test_split(mydataset['data'], mydataset['target']
+print(x_train.shape)
+print(y_train.shape)
+print(x_test.shape)
+print(y_test.shape)
+
+# Create and train the KNN model
+knn = KNeighborsClassifier(n_neighbors=1)
+knn.fit(x_train, y_train)
+
+# Make predictions and evaluate performance
+prediction = knn.predict(x_test)
+print("Test set score: {:.2f}".format(knn.score(x_test, y_test)))
+
+# Predict on a new data point
+test_1 = [[1,0.5,0.6,0.7]]
+prediction = knn.predict(test_1)
+predicted_class = int(prediction[0])  # Extract the integer value from the array
+print("Prediction: {}".format(predicted_class))
+print("Predicted target name: {}".format(mydataset.target_names[predicted_class]))
+
+# Predict on a new data point
+test_2 = [[5.8, 2.7, 4.1, 1.0]]
+prediction = knn.predict(test_2)
+predicted_class = int(prediction[0])  # Extract the integer value from the array
+print("Prediction: {}".format(predicted_class))
+print("Predicted target name: {}".format(mydataset.target_names[predicted_class]))
+
+# Predict on a new data point
+test_3 = [[1, 2, 5, 8]]
+prediction = knn.predict(test_3)
+predicted_class = int(prediction[0])  # Extract the integer value from the array
+print("Prediction: {}".format(predicted_class))
+print("Predicted target name: {}".format(mydataset.target_names[predicted_class]))
